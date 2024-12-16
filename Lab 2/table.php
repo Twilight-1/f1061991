@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 // Задание 1
-$cols = rand(1, 10);
-$rows = rand(1, 10);
+$cols = rand(5, 10);
+$rows = rand(5, 10);
 ?>
 
 <!DOCTYPE html>
