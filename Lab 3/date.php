@@ -39,21 +39,13 @@ $hour = $currentDate['hours'];
 	// Устанавливаем локаль для русскоязычного формата
 	setlocale(LC_TIME, 'ru_RU.UTF-8');
 
-	// Форматируем текущую дату, время и день недели
-	$dateFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
-	$timeFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::NONE, IntlDateFormatter::SHORT);
-	
-	// Форматируем текущую дату с днем недели
+	// Создаем форматтер для даты и времени
+	$dateFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
+	// Форматируем текущую дату, месяц, год, день недели и время
 	$dateString = $dateFormatter->format($now);
-	// Форматируем текущее время
-	$timeString = $timeFormatter->format($now);
 
-	// Получаем день недели
-	$dayOfWeek = strftime("%A", $now);
-
-	// Выводим текущую дату, время и день недели
-	echo "<p>Сегодня {$dateString}, {$dayOfWeek}.</p>";
-	echo "<p>Текущее время: {$timeString}</p>";
+	// Выводим текущую дату и время
+	echo "<p>Сегодня {$dateString}</p>";
 
 	// Рассчитываем оставшееся время до дня рождения
 	$diff = $birthday - $now;
