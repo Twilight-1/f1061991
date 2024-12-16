@@ -14,17 +14,14 @@ $day = rand(1, 10);
 </head>
 <body>
 	<h1>Конструкция match</h1>
-	<?php
-	/*
-	ЗАДАНИЕ 3
-	*/
-	
 	// Конструкция match
-	match (true) {
-		($day >= 1 && $day <= 5) => print("Это рабочий день<br>"),
-		($day == 6 || $day == 7) => print("Это выходной день<br>"),
-		default => print("Неизвестный день<br>")
+	<?php
+	$output = match($day){
+	    1, 2, 3, 4, 5 => 'Это рабочий день',
+	    6, 7 => 'Это выходной день',
+	    default => 'Неизвестный день'
 	};
+	print_r($output);	
 	?> 
 </body>
 </html>
