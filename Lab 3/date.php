@@ -3,8 +3,8 @@
 $now = time();
 
 // Задаем дату рождения 
-$birthdayMonth = 12; // Февраль
-$birthdayDay = 29;   // 1-е число
+$birthdayMonth = 12; // Декабрь
+$birthdayDay = 29;   // 29-е число
 $birthdayYear = 2003; // Год рождения
 
 // Получаем текущую дату
