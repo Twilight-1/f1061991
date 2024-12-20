@@ -1,6 +1,6 @@
 <?php
     function myAutoloader($className) {
-        $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/lab7';
+        $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/Lab7';
         
         $path = str_replace('\\', '/', $className);
         
