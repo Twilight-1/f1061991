@@ -1,35 +1,15 @@
 <?php
-declare(strict_types=1);
+$visit_count = isset($_COOKIE['visit_count']) ? (int)$_COOKIE['visit_count'] + 1 : 1;
 
-/**
- * Устанавливает куки для подсчета количества посещений и последнего визита.
- *
- * @return void
- */
-function setVisitCookies(): void {
-    // Инициализируем переменные для подсчета посещений и хранения даты последнего посещения
-    $visitCount = isset($_COOKIE['visit_count']) ? (int)$_COOKIE['visit_count'] : 0;
-    $lastVisit = isset($_COOKIE['last_visit']) ? htmlspecialchars(trim($_COOKIE['last_visit'])) : '';
-
-    // Увеличиваем счетчик посещений
-    $visitCount++;
-
-    // Устанавливаем куки с данными
-    setcookie('visit_count', (string)$visitCount, time() + 86400); // 1 день
-    setcookie('last_visit', date('d-m-Y H:i:s'), time() + 86400);   // Текущая дата и время
-
-    // Выводим результаты
-    if ($visitCount === 1) {
-        echo "Добро пожаловать!";
-    } else {
-        echo "Вы зашли на страницу {$visitCount} раз(а).<br>";
-        echo "Последнее посещение: {$lastVisit}.";
-    }
+$last_visit = '';
+if (isset($_COOKIE['last_visit'])) {
+    $last_visit = trim(htmlspecialchars($_COOKIE['last_visit']));
 }
 
-setVisitCookies();
-?>
 
+setcookie('visit_count', $visit_count, time() + 86400, '/');
+setcookie('last_visit', date('d-m-Y H:i:s'), time() + 86400, '/');
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -39,8 +19,19 @@ setVisitCookies();
     <title>Последний визит</title>
 </head>
 <body>
-
 <h1>Последний визит</h1>
+
+<?php
+if ($visit_count === 1) {
+    echo "Добро пожаловать!";
+} else {
+    echo "Вы зашли на страницу {$visit_count} раз";
+}
+
+if (!empty($last_visit)) {
+    echo "<p>Последнее посещение: {$last_visit}</p>";
+}
+?>
 
 </body>
 </html>
