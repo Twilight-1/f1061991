@@ -1,31 +1,37 @@
 <?php
-declare(strict_types=1);
-
-use Classes\User;
-use Classes\SuperUser;
-
-// Автозагрузка классов
-spl_autoload_register(function ($class) {
-    // Преобразуем пространство имен в путь к файлу
-    $path = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-    // Проверяем существование файла и подключаем его
-    if (file_exists($path)) {
-        require_once $path;
+    function myAutoloader($className) {
+        $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/lab7';
+        
+        $path = str_replace('\\', '/', $className);
+        
+        $fullPath = $baseDir . '/' . $path . '.php';
+        
+        echo "(Автоподключение классов) Попытка загрузить файл: " . $fullPath . "<br>";
+        
+        if (file_exists($fullPath)) {
+            require_once($fullPath);
+            echo "Файл загружен успешно <br>";
+        } 
+        else {
+            echo "Файл не найден: " . $fullPath . "<br>";
+        }
     }
-});
-
-// Создание объектов класса User
-$user1 = new User("Иван", "ivan123", "securepassword1");
-$user2 = new User("Мария", "masha456", "securepassword2");
-$user3 = new User("Петр", "peter789", "securepassword3");
-
-// Вызов метода showInfo() для каждого пользователя
-$user1->showInfo();
-$user2->showInfo();
-$user3->showInfo();
-
-// Создание объекта класса SuperUser
-$admin = new SuperUser("Алексей", "admin", "supersecurepassword", "Администратор");
-
-// Вызов метода showInfo() для объекта класса SuperUser
-$admin->showInfo();
+    
+    spl_autoload_register('myAutoloader');
+    
+    use \MyProject\Classes\User as User;
+    use \MyProject\Classes\SuperUser as SuperUser;
+    
+    $user1 = new User("User1", "UserOne", "Password1!");
+    $user2 = new User("User2", "UserTwo", "Password2!");
+    $user3 = new User("User3", "UserThree", "Password3!");
+    
+    $user = new SuperUser("User", "User", "Password!", "Пользователь");
+    
+    echo "<pre>";
+    $user1 -> showinfo();
+    $user2 -> showinfo();
+    $user3 -> showinfo();
+    $user -> showinfo();
+    echo "</pre>";
+?>
