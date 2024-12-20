@@ -1,12 +1,18 @@
 <?php
+// Инициализация переменных с значениями по умолчанию
+$cols = 10;
+$rows = 10;
+$color = '#ffff00';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cols = abs((int) $_POST['cols']);
     $rows = abs((int) $_POST['rows']);
     $color = trim(strip_tags($_POST['color']));
 }
-$cols = ($cols) ? $cols : 10;
-$rows = ($rows) ? $rows : 10;
-$color = ($color) ? $color : '#ffff00';
+
+// Проверка на нулевые значения
+$cols = ($cols > 0) ? $cols : 10;
+$rows = ($rows > 0) ? $rows : 10;
 ?>
 
 <section>
